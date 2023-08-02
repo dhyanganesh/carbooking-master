@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block orders %}
+<div class="container my-5">
+    <div class="row"> 
+        {% if cart %} 
+        <h1 class="text-center mb-5">ORDERS</h1>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Order List</h3> 
+                    {% for item in ord %}
+                    <div class="row">
+                        <div class="col-sm-3 text-center align-self-center"><img
+                                src="{{item.product.product_images.url}}" alt="" srcset=""
+                                class="img-fluid img-thumbnail shadow-sm" height="150" width="150">
+                        </div>
+                        <div class="col-sm-9">
+                            <div>
+                                <h5>{{item.product.title}}</h5>
+                                <p class="mb-2 text-muted small">{{item.product.description}}</p>
+                                <div class="my-3"> <label for="quantity">Quantity:</label>
+                                     <span
+                                        id="quantity">{{item.quantity}}</span>
+                                </div>
+                                <p class="mb-0"><span><strong>LOCATION: {{item.customer.location}}</strong></span>
+                                </p>
+                                    <p class="mb-0"><span><strong>Rs. {{item.product.selling_prize}}</strong></span>
+                                    </p>
+                                    
+                                    <p class="text-end p-2"><span><strong>Payment {{item.status}}</strong></span>
+                                    </p>
+                                    <a href="{% url 'invoice' pk=item.id %}" class="btn btn-primary "> invoice</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="text-muted">
+                    {% endfor %}
+                    
+                    <p class="mb-0"><span><strong>total amount = Rs. {{totalamount}}</strong></span>
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+        {% else %} 
+        <h1 class="text-center mb-5">Cart is Empty</h1>
+         {% endif %}
+    </div>
+</div>
+{% endblock %}

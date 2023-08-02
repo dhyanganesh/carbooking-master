@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block checkout %}
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm-6">
+      <h4>Order Summary</h4>
+      <hr>
+      {% for items in cart_items %}
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5>Product : {{items.product.title}}</h5>
+          <p>Quantity : {{items.quantity}}</p>
+          <p class="fw-bold">Price:{{items.product.selling_prize}}</p>
+        </div>
+      </div>
+      {% endfor %}
+      <p class="fw-bold">Total cost +500 =Rs.{{totalamount}}</p>
+    </div>
+    <div class="col-sm-4 offset-sm-1">
+      <h4>Select Shipping Address</h4>
+      <hr>
+      <form method="post"  id="myform">
+        {% csrf_token %}
+        {% for ad in add %}
+        <div class="card">
+          <div class="card-body">
+            <h5>NAME:- {{ad.name}}</h5>
+            <p>MOBILE_NO:-{{ad.phoneno}}</p>
+            <p>{{ad.location}}, {{ad.state}}</p>
+          </div>
+        </div>
+        <div class="form-check mt-2 mb-5">
+          <input class="form-check-input border border-dark" type="radio" name="custid" id="custadd{{forloop.counter}}" value="{{ad.id}}" required>
+          <label class="form-check-label fw-bold" for="">
+            Address: {{forloop.counter}}</label>
+        </div>
+        {% endfor %}
+        <div class="form-check mb-3">
+          <label for="totamount" class="form-label">Total amount</label>
+          <input class="form-control" type="number" name="totamount" value="{{totalamount}}" readonly>
+        </div>
+        <div class="text-end">
+
+          <a href="{% url 'orders' %}"><button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">payment</button></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br><br>
+{% endblock checkout %}

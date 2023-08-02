@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block proddetails %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <img class="img-fluid" src="{{product.product_images.url}}" alt="" class="img-fluid">
+            
+        </div>
+        <div class="col-md-6">
+            <h1>{{product}}</h1>
+            <h4 class="p-2 mt-1">Rs.{{product.selling_prize}}</h4>
+            <h3 class="mt-5">PRODUCT DETAILS</h3>
+            <p class="p-2 mt-3">{{product.discription}}</p>
+            <div class="row">
+                <form action="/add-to-cart" class="d-inline">
+                    <input type="hidden" name="prod_id" value="{{product.id}}">
+                  <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
